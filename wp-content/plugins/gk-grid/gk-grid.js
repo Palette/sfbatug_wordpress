@@ -54,6 +54,7 @@ jQuery(window).load(function(){
                 }
             }
         });
+        jQuery('.gk-grid-wrap').css('background', 'none');
     }, 500);
 });
 

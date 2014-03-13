@@ -314,7 +314,7 @@ class GK_Grid_Widget extends WP_Widget {
 				$sidebars = wp_get_sidebars_widgets();
 				$widget_code = array();
 				
-				if($cache_content && $cache_time > 0) {
+				if($cache_content && $this->config['cache_time'] > 0) {
 					$widget_code = $cache_content;
 				} else {
 					foreach($sidebars[$this->config['selected_sidebar']] as $widget) {
@@ -357,7 +357,7 @@ class GK_Grid_Widget extends WP_Widget {
 						}
 					}
 					// store the results
-					if($cache_time > 0) {
+					if($this->config['cache_time'] > 0) {
 						$cache_output = $widget_code;
 						$this->config['cache_time'] = ($this->config['cache_time'] == '' || !is_numeric($this->config['cache_time'])) ? 60 : (int) $this->config['cache_time'];
 						set_transient(md5($this->id) , $cache_output, $this->config['cache_time'] * 60);
