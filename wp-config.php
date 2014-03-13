@@ -14,24 +14,29 @@
  * @package WordPress
  */
 
-// ** MySQL settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
-define('DB_NAME', 'sfbatug');
+if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1') {
+    define('ENVIRONMENT', 'local');
+}
+else {
+    define('ENVIRONMENT', 'staging');
+}
 
-/** MySQL database username */
-define('DB_USER', 'sfbatug');
-
-/** MySQL database password */
-define('DB_PASSWORD', 'sp1xLL09');
-
-/** MySQL hostname */
-define('DB_HOST', 'localhost');
-
-/** Database Charset to use in creating database tables. */
-define('DB_CHARSET', 'utf8');
-
-/** The Database Collate type. Don't change this if in doubt. */
-define('DB_COLLATE', '');
+if (ENVIRONMENT == 'local') {
+    define('DB_NAME', 'sfbatug');
+    define('DB_USER', 'sfbatug');
+    define('DB_PASSWORD', 'sp1xLL09');
+    define('DB_HOST', 'localhost');
+    define('DB_CHARSET', 'utf8');
+    define('DB_COLLATE', '');
+}
+else if (ENVIRONMENT == 'staging'){
+    define('DB_NAME', 'sfbatug_wp_staging');
+    define('DB_USER', 'sfbatug_wp');
+    define('DB_PASSWORD', 'sp1xLL09');
+    define('DB_HOST', 'mysql.staging.sfbatug.org');
+    define('DB_CHARSET', 'utf8');
+    define('DB_COLLATE', '');
+}
 
 /**#@+
  * Authentication Unique Keys and Salts.
