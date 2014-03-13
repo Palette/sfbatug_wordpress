@@ -22,10 +22,10 @@ else {
 }
 
 if (ENVIRONMENT == 'local') {
-    define('DB_NAME', 'sfbatug');
-    define('DB_USER', 'sfbatug');
+    define('DB_NAME', 'sfbatug_wp_local');
+    define('DB_USER', 'sfbatug_wp');
     define('DB_PASSWORD', 'sp1xLL09');
-    define('DB_HOST', 'localhost');
+    define('DB_HOST', 'mysql.staging.sfbatug.org');
     define('DB_CHARSET', 'utf8');
     define('DB_COLLATE', '');
 }
