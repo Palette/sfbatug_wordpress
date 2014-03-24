@@ -8,9 +8,9 @@
 		<div class="page" id="activate-page">
 
 			<h3><?php if ( bp_account_was_activated() ) :
-				_e( 'Account Activated', 'buddypress' );
+				_e( 'Account Verified', 'buddypress' );
 			else :
-				_e( 'Activate your Account', 'buddypress' );
+				_e( 'Verify your Account', 'buddypress' );
 			endif; ?></h3>
 
 			<?php do_action( 'template_notices' ); ?>
@@ -20,18 +20,18 @@
 			<?php if ( bp_account_was_activated() ) : ?>
 
 				<?php if ( isset( $_GET['e'] ) ) : ?>
-					<p><?php _e( 'Your account was activated successfully! Your account details have been sent to you in a separate email.', 'buddypress' ); ?></p>
+					<p><?php _e( 'Your account was verified successfully! Your account details have been sent to you in a separate email.', 'buddypress' ); ?></p>
 				<?php else : ?>
-					<p><?php printf( __( 'Your account was activated successfully! You can now <a href="%s">log in</a> with the username and password you provided when you signed up.', 'buddypress' ), wp_login_url( bp_get_root_domain() ) ); ?></p>
+					<p><?php _e( 'Your account was verified successfully! You are now on a waiting list. Once an administrator has approved your account you will be notified via email.', 'buddypress' ); ?></p>
 				<?php endif; ?>
 
 			<?php else : ?>
 
-				<p><?php _e( 'Please provide a valid activation key.', 'buddypress' ); ?></p>
+				<p><?php _e( 'Please provide a valid verification key.', 'buddypress' ); ?></p>
 
 				<form action="" method="get" class="standard-form" id="activation-form">
 
-					<label for="key"><?php _e( 'Activation Key:', 'buddypress' ); ?></label>
+					<label for="key"><?php _e( 'Verification Key:', 'buddypress' ); ?></label>
 					<input type="text" name="key" id="key" value="" />
 
 					<p class="submit">

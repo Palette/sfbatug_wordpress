@@ -196,12 +196,4 @@ add_action('admin_enqueue_scripts', 'gavern_enqueue_admin_js_and_css');
 
 // remove the generator metatag due security reasons
 remove_action('wp_head', 'wp_generator');
-// This theme uses wp_nav_menu() in one location.
-register_nav_menus( array(
-	'primary' => __( 'Primary Navigation', 'buddypress' ),
-) );
-// I added this line to support a second menu for logged out users
-register_nav_menus( array(
-	'secondary' => __( 'Secondary Navigation', 'buddypress' ),
-) );
 // EOF

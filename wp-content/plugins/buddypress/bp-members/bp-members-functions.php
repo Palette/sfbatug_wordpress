@@ -1468,8 +1468,8 @@ function bp_core_signup_send_validation_email( $user_id, $user_email, $key ) {
 	$activate_url = bp_get_activation_page() ."?key=$key";
 	$activate_url = esc_url( $activate_url );
 
-	$message = sprintf( __( "Thanks for registering! To complete the activation of your account please click the following link:\n\n%1\$s\n\n", 'buddypress' ), $activate_url );
-	$subject = bp_get_email_subject( array( 'text' => __( 'Activate Your Account', 'buddypress' ) ) );
+	$message = sprintf( __( "Thanks for registering! To verify of your account please click the following link:\n\n%1\$s\n\nAfter verification, your account will be put on a waiting list to be activated by an administrator.", 'buddypress' ), $activate_url );
+	$subject = bp_get_email_subject( array( 'text' => __( 'Verify Your Account', 'buddypress' ) ) );
 
 	// Send the message
 	$to      = apply_filters( 'bp_core_signup_send_validation_email_to',     $user_email, $user_id                );
