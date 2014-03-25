@@ -984,7 +984,7 @@ function wpmu_activate_signup($key) {
 	$signup = $wpdb->get_row( $wpdb->prepare("SELECT * FROM $wpdb->signups WHERE activation_key = %s", $key) );
 
 	if ( empty( $signup ) )
-		return new WP_Error( 'invalid_key', __( 'Invalid activation key.' ) );
+		return new WP_Error( 'invalid_key', __( 'Invalid validation key.' ) );
 
 	if ( $signup->active ) {
 		if ( empty( $signup->domain ) )

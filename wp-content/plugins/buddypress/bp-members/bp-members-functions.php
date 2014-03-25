@@ -1377,11 +1377,11 @@ function bp_core_activate_signup( $key ) {
 		$user_id = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = 'activation_key' AND meta_value = %s", $key ) );
 
 		if ( empty( $user_id ) )
-			return new WP_Error( 'invalid_key', __( 'Invalid activation key', 'buddypress' ) );
+			return new WP_Error( 'invalid_key', __( 'Invalid validation key', 'buddypress' ) );
 
 		// Change the user's status so they become active
 		if ( !$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->users} SET user_status = 0 WHERE ID = %d", $user_id ) ) )
-			return new WP_Error( 'invalid_key', __( 'Invalid activation key', 'buddypress' ) );
+			return new WP_Error( 'invalid_key', __( 'Invalid validation key', 'buddypress' ) );
 
 		// Notify the site admin of a new user registration
 		wp_new_user_notification( $user_id );
