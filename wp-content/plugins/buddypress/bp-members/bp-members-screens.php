@@ -264,7 +264,7 @@ function bp_core_screen_activation() {
 		if ( file_exists( bp_core_avatar_upload_path() . '/avatars/signups/' . $hashed_key ) )
 			@rename( bp_core_avatar_upload_path() . '/avatars/signups/' . $hashed_key, bp_core_avatar_upload_path() . '/avatars/' . $user );
 
-		bp_core_add_message( __( 'Your account is now active!', 'buddypress' ) );
+		bp_core_add_message( __( 'Your account is now verified!', 'buddypress' ) );
 
 		$bp->activation_complete = true;
 	}
@@ -533,7 +533,7 @@ class BP_Registration_Theme_Compat {
 			$title = __( 'Activate your Account', 'buddypress' );
 
 			if ( bp_account_was_activated() ) {
-				$title = __( 'Account Activated', 'buddypress' );
+				$title = __( 'Account Verified', 'buddypress' );
 			}
 		}
 
