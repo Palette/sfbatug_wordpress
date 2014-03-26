@@ -107,9 +107,9 @@
 				<a href="<?php echo home_url(); ?>" class="<?php echo get_option($tpl->name . "_branding_logo_type", 'css'); ?>Logo"><?php gk_blog_logo(); ?></a>
 				<?php endif; ?>
 				
-				<?php //if(gk_show_menu('mainmenu')) : ?>
-					<? //php gavern_menu('mainmenu', 'gk-main-menu', array('walker' => new GKMenuWalker())); ?>
-				<?php //endif; ?>
+				<?php if(gk_show_menu('mainmenu')) : ?>
+					<?php gavern_menu('mainmenu', 'gk-main-menu', array('walker' => new GKMenuWalker())); ?>
+				<?php endif; ?>
 				
 			</div>
 			<?php if(gk_show_breadcrumbs()) : ?>
