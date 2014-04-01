@@ -201,4 +201,16 @@ remove_action('wp_head', 'wp_generator');
 if (!current_user_can('edit_posts')) {
 	show_admin_bar(false);
 }
+
+/** Functionality to use different users for logged in and logged out users **/
+function my_wp_nav_menu_args( $args = '' ) {
+	if( is_user_logged_in() ) {
+	    $args['menu'] = 'logged-in';
+	} 
+	else {
+	    $args['menu'] = 'logged-out';
+	}
+	return $args;
+}
+add_filter( 'wp_nav_menu_args', 'my_wp_nav_menu_args' );
 // EOF
