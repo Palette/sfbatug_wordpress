@@ -93,3 +93,7 @@ if ( !defined('ABSPATH') )
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
+
+/** Domain Agnostic Wordpressness **/
+define('WP_HOME',       "http://{$_SERVER['SERVER_NAME']}/");
+define('WP_SITEURL',    "http://{$_SERVER['SERVER_NAME']}/");
