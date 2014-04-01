@@ -198,10 +198,7 @@ add_action('admin_enqueue_scripts', 'gavern_enqueue_admin_js_and_css');
 remove_action('wp_head', 'wp_generator');
 
 //Hide toolbar for users who cannot edit posts
-add_action('set_current_user', 'hide_admin_bar');
-function hide_admin_bar() {
-  	if (!current_user_can('edit_posts')) {
-    	show_admin_bar(false);
-	}
+if (!current_user_can('edit_posts')) {
+	show_admin_bar(false);
 }
 // EOF
