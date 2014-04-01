@@ -22,12 +22,14 @@ else {
 }
 
 if (ENVIRONMENT == 'local') {
-    define('DB_NAME', 'sfbatug_wp_local');
+    define('DB_NAME', 'sfbatug_wp_staging');
     define('DB_USER', 'sfbatug_wp');
     define('DB_PASSWORD', 'sp1xLL09');
     define('DB_HOST', 'mysql.staging.sfbatug.org');
     define('DB_CHARSET', 'utf8');
     define('DB_COLLATE', '');
+
+    define('WP_DEBUG', true);
 }
 else if (ENVIRONMENT == 'staging'){
     define('DB_NAME', 'sfbatug_wp_staging');
@@ -36,6 +38,8 @@ else if (ENVIRONMENT == 'staging'){
     define('DB_HOST', 'mysql.staging.sfbatug.org');
     define('DB_CHARSET', 'utf8');
     define('DB_COLLATE', '');
+
+    define('WP_DEBUG', false);
 }
 
 /**#@+
@@ -75,15 +79,6 @@ $table_prefix  = 'sfbatug_';
  * language support.
  */
 define('WPLANG', '');
-
-/**
- * For developers: WordPress debugging mode.
- *
- * Change this to true to enable the display of notices during development.
- * It is strongly recommended that plugin and theme developers use WP_DEBUG
- * in their development environments.
- */
-define('WP_DEBUG', true);
 
 /* That's all, stop editing! Happy blogging. */
 
