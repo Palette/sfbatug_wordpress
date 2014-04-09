@@ -124,7 +124,7 @@ if( ! class_exists( 'BP_XProfile_Image_Field' ) ) {
                         <label for="<?php bp_the_profile_field_input_name(); ?>"><?php bp_the_profile_field_name(); ?> <?php if ( bp_get_the_profile_field_is_required() ) : ?><?php _e( '(required)', 'buddypress' ); ?><?php endif; ?></label>
                         <input type="file" name="<?php echo $image_field_input_name; ?>" id="<?php echo $image_field_input_name; ?>" value="" <?php if ( bp_get_the_profile_field_is_required() ) : ?>aria-required="true"<?php endif; ?>/>
                         <input type="hidden" name="<?php echo $field_name_hidden; ?>" id="<?php echo $field_name_hidden; ?>" value="<?php echo bp_get_the_profile_field_edit_value(); ?>" />
-                        <img src="<?php echo $image; ?>" alt="<?php bp_the_profile_field_name(); ?>" />
+                        <!--<img src="<?php echo $image; ?>" alt="<?php bp_the_profile_field_name(); ?>" />-->
 
                 <?php
 
