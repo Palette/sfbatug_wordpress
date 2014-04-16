@@ -10,7 +10,7 @@ function add_field(forWhat) {
 	var span = document.createElement( 'span' );
 	span.appendChild( document.createTextNode( "\u00A0\u039E " ) );
 
-	var $select = jQuery("<select>", {name: 'bps_options[field_name][' + theId + ']', id: 'field_name' + theId});
+	var $select = jQuery("<select style='width:28%;'>", {name: 'bps_options[field_name][' + theId + ']', id: 'field_name' + theId});
 	var $option = jQuery("<option>", {text: bps_strings.field, value: 0});
 	$option.appendTo($select);
 
@@ -38,7 +38,7 @@ function add_field(forWhat) {
 	fieldD.setAttribute( 'name', 'bps_options[field_desc][' + theId + ']' );
 	fieldD.setAttribute( 'id', 'field_desc' + theId );
 	fieldD.setAttribute( 'placeholder', bps_strings.description );
-	fieldD.setAttribute( 'style', 'width: 32%' );
+	fieldD.setAttribute( 'style', 'width: 20%' );
 
 	var range = document.createElement( 'input' );
 	range.setAttribute( 'type', 'checkbox' );
@@ -46,9 +46,19 @@ function add_field(forWhat) {
 	range.setAttribute( 'id', 'field_range' + theId );
 	range.setAttribute( 'value', theId );
 
-	var label = document.createElement( 'label' );
-	label.appendChild( range );
-	label.appendChild( document.createTextNode( bps_strings.range + ' ' ) );
+	var labelRange = document.createElement( 'label' );
+	labelRange.appendChild( range );
+	labelRange.appendChild( document.createTextNode( bps_strings.range + ' ' ) );
+
+	var business_member = document.createElement( 'input' );
+	business_member.setAttribute( 'type', 'checkbox' );
+	business_member.setAttribute( 'name', 'bps_options[field_business_member][' + theId + ']' );
+	business_member.setAttribute( 'id', 'field_business_member' + theId );
+	business_member.setAttribute( 'value', theId );
+
+	var labelBusinessMember = document.createElement( 'label' );
+	labelBusinessMember.appendChild( business_member );
+	labelBusinessMember.appendChild( document.createTextNode( bps_strings.business_member + ' ' ) );
 
 	var toDelete = document.createElement( 'a' );
 	toDelete.setAttribute( 'href', "javascript:hide('field_div" + theId + "')" );
@@ -63,7 +73,8 @@ function add_field(forWhat) {
 	newDiv.appendChild( document.createTextNode( " " ) );
 	newDiv.appendChild( fieldD );
 	newDiv.appendChild( document.createTextNode( " " ) );
-	newDiv.appendChild( label );
+	newDiv.appendChild( labelRange );
+	newDiv.appendChild( labelBusinessMember );
 	newDiv.appendChild( toDelete );
 
 	enableSortableFieldOptions();

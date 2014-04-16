@@ -104,6 +104,7 @@ function bps_update_fields ()
 	$bps_options['field_label'] = array ();
 	$bps_options['field_desc'] = array ();
 	$bps_options['field_range'] = array ();
+	$bps_options['field_business_member'] = array ();
 
 	$j = 0;
 	$posted = $_POST['bps_options'];
@@ -157,8 +158,9 @@ function bps_form_fields ()
 			bps_profile_fields ("bps_options[field_name][$k]", "field_name$k", $id);
 ?>
 			<input type="text" name="bps_options[field_label][<?php echo $k; ?>]" id="field_label<?php echo $k; ?>" value="<?php echo $label; ?>" style="width: 16%" />
-			<input type="text" name="bps_options[field_desc][<?php echo $k; ?>]" id="field_desc<?php echo $k; ?>" value="<?php echo $desc; ?>" style="width: 32%" />
+			<input type="text" name="bps_options[field_desc][<?php echo $k; ?>]" id="field_desc<?php echo $k; ?>" value="<?php echo $desc; ?>" style="width: 20%" />
 			<label><input type="checkbox" name="bps_options[field_range][<?php echo $k; ?>]" id="field_range<?php echo $k; ?>" value="<?php echo $k; ?>"<?php if (isset ($bps_options['field_range'][$k])) echo ' checked="checked"'; ?> /><?php _e('Range', 'bps'); ?> </label>
+			<label><input type="checkbox" name="bps_options[field_business_member][<?php echo $k; ?>]" id="field_business_member<?php echo $k; ?>" value="<?php echo $k; ?>"<?php if (isset ($bps_options['field_business_member'][$k])) echo ' checked="checked"'; ?> /><?php _e('Business Members Only', 'bps'); ?> </label>
 			<a href="javascript:hide('field_div<?php echo $k; ?>')" class="delete">[x]</a>
 		</p>
 <?php
@@ -174,7 +176,7 @@ function bps_profile_fields ($name, $id, $value)
 {
 	list ($groups, $x) = bps_get_fields ();
 
-	echo "<select name='$name' id='$id'>\n";
+	echo "<select style='width:28%;' name='$name' id='$id'>\n";
 	foreach ($groups as $group => $fields)
 	{
 		echo "<optgroup label='$group'>\n";
