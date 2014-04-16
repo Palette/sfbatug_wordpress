@@ -89,7 +89,7 @@ function bps_admin_js ()
 		'label' => __('label', 'bps'),
 		'description' => __('description', 'bps'),
 		'range' => __('Range', 'bps'),
-		'business_member' => __('Business Member', 'bps'),
+		'business_member' => __('Business Members Only', 'bps'),
 	);
 	wp_enqueue_script ('bps-admin', plugins_url ('bps-admin.js', __FILE__), array ('jquery-ui-sortable'), BPS_VERSION);
 	wp_localize_script ('bps-admin', 'bps_strings', $translations);
@@ -126,6 +126,8 @@ function bps_update_fields ()
 		$bps_options['field_desc'][$j] = $desc;
 		if (isset ($posted['field_range'][$k]) && $type != 'checkbox' && $type != 'multiselectbox')
 			$bps_options['field_range'][$j] = $j;
+		if (isset ($posted['field_business_member'][$k]) && $type != 'checkbox' && $type != 'multiselectbox')
+			$bps_options['field_business_member'][$j] = $j;
 
 		if ($type == 'datebox')
 			$bps_options['field_range'][$j] = $j;
