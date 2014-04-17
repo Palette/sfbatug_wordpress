@@ -10,7 +10,7 @@ function add_field(forWhat) {
 	var span = document.createElement( 'span' );
 	span.appendChild( document.createTextNode( "\u00A0\u039E " ) );
 
-	var $select = jQuery("<select style='width:28%;'>", {name: 'bps_options[field_name][' + theId + ']', id: 'field_name' + theId});
+	var $select = jQuery("<select>", {name: 'bps_options[field_name][' + theId + ']', id: 'field_name' + theId, style:'width:28%;'});
 	var $option = jQuery("<option>", {text: bps_strings.field, value: 0});
 	$option.appendTo($select);
 
