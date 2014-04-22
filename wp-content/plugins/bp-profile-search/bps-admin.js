@@ -54,13 +54,13 @@ function add_field(forWhat) {
 	memberType.setAttribute( 'name', 'bps_options[field_member_type][' + theId + ']' );
 	memberType.setAttribute( 'id', 'field_member_type' + theId );
 	memberType.setAttribute( 'value', theId );
-	var $select = jQuery("<select>", {name: 'bps_options[field_member_type][' + theId + ']', id: 'field_member_type' + theId, style:'width:28%;'});
-	var $option = jQuery("<option>", {text: bps_strings.field, value: 0});
-	$option.appendTo($select);
+	var $memberTypeSelect = jQuery("<select>", {name: 'bps_options[field_member_type][' + theId + ']', id: 'field_member_type' + theId, style:'width:28%;'});
+	var $memberTypeOption = jQuery("<option>", {text: bps_strings.field, value: 0});
+	$memberTypeOption.appendTo($memberTypeSelect);
 
 	jQuery.each( bps_member_types, function( value, text ) {
 		var $option = jQuery( "<option>", {text: text, value: value} );
-		$option.appendTo( $select );
+		$option.appendTo( $memberTypeSelect );
 	});
 
 	var labelMemberType = document.createElement( 'label' );
