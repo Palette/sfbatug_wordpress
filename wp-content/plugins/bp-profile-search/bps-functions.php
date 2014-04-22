@@ -85,11 +85,11 @@ __('In both modes, two wildcard characters are available:', 'bps'). '
 function bps_admin_js ()
 {
 	$translations = array (
-		'field' => __('field', 'bps'),
-		'label' => __('label', 'bps'),
-		'description' => __('description', 'bps'),
+		'field' => __('Field', 'bps'),
+		'label' => __('Label', 'bps'),
+		'description' => __('Description', 'bps'),
 		'range' => __('Range', 'bps'),
-		'member_type' => __('Available To', 'bps'),
+		'member_type' => __('Member Type', 'bps'),
 	);
 	wp_enqueue_script ('bps-admin', plugins_url ('bps-admin.js', __FILE__), array ('jquery-ui-sortable'), BPS_VERSION);
 	wp_localize_script ('bps-admin', 'bps_strings', $translations);
@@ -145,33 +145,56 @@ function bps_form_fields ()
 	echo '<script>var bps_member_types = '. json_encode (xprofile_get_field(18)->get_children_array()). ';</script>';
 ?>
 
-	<div id="field_box" class="field_box">
-<?php
+	<table id="field_box" class="field_box">
+		<tr>
+			<th>
+				Name
+			</th>
+			<th>
+				Label
+			</th>
+			<th>
+				Description
+			</th>
+			<th>
+				Range
+			</th>
+			<th>
+				Available To
+			</th>
+		</tr>
+	<?php
 	foreach ($bps_options['field_name'] as $k => $id)
 	{
 		if (empty ($fields[$id]))  continue;
 
 		$label = $bps_options['field_label'][$k];
 		$desc = $bps_options['field_desc'][$k];
-		$member_type = $bps_options['field_member_type'][$k];
-?>
-
-		<p id="field_div<?php echo $k; ?>" class="sortable">
-			<span>&nbsp;&Xi; </span>
-<?php
-			bps_profile_fields ("bps_options[field_name][$k]", "field_name$k", $id);
-?>
-			<input type="text" name="bps_options[field_label][<?php echo $k; ?>]" id="field_label<?php echo $k; ?>" value="<?php echo $label; ?>" style="width: 16%" />
-			<input type="text" name="bps_options[field_desc][<?php echo $k; ?>]" id="field_desc<?php echo $k; ?>" value="<?php echo $desc; ?>" style="width: 20%" />
-			<label><input type="checkbox" name="bps_options[field_range][<?php echo $k; ?>]" id="field_range<?php echo $k; ?>" value="<?php echo $k; ?>"<?php if (isset ($bps_options['field_range'][$k])) echo ' checked="checked"'; ?> /><?php _e('Range', 'bps'); ?> </label>
-			<label><?php xprofile_get_field(18)->get_select_html($k, $member_type); _e('Available To', 'bps'); ?> </label>
-			<a href="javascript:hide('field_div<?php echo $k; ?>')" class="delete">[x]</a>
-		</p>
-<?php
-	}
-?>
-		<input type="hidden" id="field_next" value="<?php echo count ($bps_options['field_label']); ?>" />
-	</div>
+		$member_type = $bps_options['field_member_type'][$k]; 
+		?>
+		<tr>
+			<td>	
+				<?php bps_profile_fields ("bps_options[field_name][$k]", "field_name$k", $id); ?>
+			</td>
+			<td>
+				<input type="text" name="bps_options[field_label][<?php echo $k; ?>]" id="field_label<?php echo $k; ?>" value="<?php echo $label; ?>" />
+			</td>
+			<td>
+				<input type="text" name="bps_options[field_desc][<?php echo $k; ?>]" id="field_desc<?php echo $k; ?>" value="<?php echo $desc; ?>" />
+			</td>
+			<td>
+				<input type="checkbox" name="bps_options[field_range][<?php echo $k; ?>]" id="field_range<?php echo $k; ?>" value="<?php echo $k; ?>"<?php if (isset ($bps_options['field_range'][$k])) echo ' checked="checked"'; ?> />
+			</td>
+			<td>
+				<?php xprofile_get_field(18)->get_select_html($k, $member_type); ?>
+			</td>
+			<td>
+				<a href="javascript:hide('field_div<?php echo $k; ?>')" class="delete">[x]</a>
+			</td>
+		</tr>
+	<?php } ?>
+	<input type="hidden" id="field_next" value="<?php echo count ($bps_options['field_label']); ?>" />
+	</table>
 	<p><a href="javascript:add_field()"><?php _e('Add Field', 'bps'); ?></a></p>
 <?php
 }
@@ -180,7 +203,7 @@ function bps_profile_fields ($name, $id, $value)
 {
 	list ($groups, $x) = bps_get_fields ();
 
-	echo "<select style='width:28%;' name='$name' id='$id'>\n";
+	echo "<select name='$name' id='$id'>\n";
 	foreach ($groups as $group => $fields)
 	{
 		echo "<optgroup label='$group'>\n";
