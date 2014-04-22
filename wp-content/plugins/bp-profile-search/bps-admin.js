@@ -60,7 +60,7 @@ function add_field(forWhat) {
 	});
 
 	var labelMemberType = document.createElement( 'label' );
-	labelMemberType.appendChild( $memberTypeSelect.get() );
+	labelMemberType.appendChild( $memberTypeSelect[0] );
 	labelMemberType.appendChild( document.createTextNode( bps_strings.member_type + ' ' ) );
 
 	var toDelete = document.createElement( 'a' );
