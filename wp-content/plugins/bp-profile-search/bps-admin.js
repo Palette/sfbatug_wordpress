@@ -58,16 +58,9 @@ function add_field(forWhat) {
 	var $option = jQuery("<option>", {text: bps_strings.field, value: 0});
 	$option.appendTo($select);
 
-	jQuery.each( bps_member_types, function( i, optgroups ) {
-		jQuery.each( optgroups, function( groupName, options ) {
-			var $optgroup = jQuery( "<optgroup>", {label: groupName} );
-			$optgroup.appendTo( $select );
-
-			jQuery.each( options, function( j, option ) {
-				var $option = jQuery( "<option>", {text: option.name, value: option.id} );
-				$option.appendTo( $optgroup );
-			});
-		});
+	jQuery.each( bps_member_types, function( value, text ) {
+		var $option = jQuery( "<option>", {text: text, value: value} );
+		$option.appendTo( $select );
 	});
 
 	var labelMemberType = document.createElement( 'label' );
