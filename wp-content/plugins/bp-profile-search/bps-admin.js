@@ -59,6 +59,7 @@ function add_field(forWhat) {
 	$memberTypeOption.appendTo($memberTypeSelect);
 
 	jQuery.each( bps_member_types, function( value, text ) {
+		console.log(bps_member_types);
 		var $option = jQuery( "<option>", {text: text, value: value} );
 		$option.appendTo( $memberTypeSelect );
 	});
