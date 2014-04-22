@@ -69,7 +69,7 @@ function add_field(forWhat) {
 	newDiv.appendChild( fieldD );
 	newDiv.appendChild( document.createTextNode( " " ) );
 	newDiv.appendChild( range );
-	newDiv.appendChild( memberType );
+	newDiv.appendChild( $memberTypeSelect );
 	newDiv.appendChild( toDelete );
 
 	enableSortableFieldOptions();
