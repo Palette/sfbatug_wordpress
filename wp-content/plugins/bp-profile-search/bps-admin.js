@@ -50,14 +50,9 @@ function add_field(forWhat) {
 	labelRange.appendChild( range );
 	labelRange.appendChild( document.createTextNode( bps_strings.range + ' ' ) );
 
-	var memberType = document.createElement( 'select' );
-	memberType.setAttribute( 'name', 'bps_options[field_member_type][' + theId + ']' );
-	memberType.setAttribute( 'id', 'field_member_type' + theId );
-	memberType.setAttribute( 'value', theId );
 	var $memberTypeSelect = jQuery("<select>", {name: 'bps_options[field_member_type][' + theId + ']', id: 'field_member_type' + theId, style:'width:28%;'});
 	var $memberTypeOption = jQuery("<option>", {text: bps_strings.field, value: 0});
 	$memberTypeOption.appendTo($memberTypeSelect);
-
 	jQuery.each( bps_member_types, function( value, text ) {
 		var $option = jQuery( "<option>", {text: text, value: value} );
 		console.log(text);
@@ -65,7 +60,7 @@ function add_field(forWhat) {
 	});
 
 	var labelMemberType = document.createElement( 'label' );
-	labelMemberType.appendChild( memberType );
+	labelMemberType.appendChild( memberTypeSelect );
 	labelMemberType.appendChild( document.createTextNode( bps_strings.member_type + ' ' ) );
 
 	var toDelete = document.createElement( 'a' );
