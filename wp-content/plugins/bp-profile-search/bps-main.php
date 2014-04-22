@@ -75,7 +75,7 @@ function bps_init_form ()
 	$bps_options['field_label'] = array ();
 	$bps_options['field_desc'] = array ();
 	$bps_options['field_range'] = array ();
-	$bps_options['field_business_member'] = array ();
+	$bps_options['field_member_type'] = array ();
 	$bps_options['directory'] = 'No';
 	$bps_options['header'] = __('<h4>Advanced Search</h4>', 'bps');
 	$bps_options['show'] = array ('Enabled');

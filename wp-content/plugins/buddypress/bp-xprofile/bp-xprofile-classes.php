@@ -656,12 +656,82 @@ class BP_XProfile_Field {
 		return apply_filters( 'bp_xprofile_field_get_children', $children );
 	}
 
+	public function get_children_array( $for_editing = false ) {
+		global $wpdb, $bp;
+
+		// This is done here so we don't have problems with sql injection
+		if ( 'asc' == $this->order_by && empty( $for_editing ) ) {
+			$sort_sql = 'ORDER BY name ASC';
+		} elseif ( 'desc' == $this->order_by && empty( $for_editing ) ) {
+			$sort_sql = 'ORDER BY name DESC';
+		} else {
+			$sort_sql = 'ORDER BY option_order ASC';
+		}
+
+		// This eliminates a problem with getting all fields when there is no id for the object
+		if ( empty( $this->id ) ) {
+			$parent_id = -1;
+		} else {
+			$parent_id = $this->id;
+		}
+
+		$sql = $wpdb->prepare( "SELECT * FROM {$bp->profile->table_name_fields} WHERE parent_id = %d AND group_id = %d $sort_sql", $parent_id, $this->group_id );
+
+		if ( !$children = $wpdb->get_results( $sql ) )
+			return false;
+
+		
+		$sql = $wpdb->prepare( "SELECT * FROM {$bp->profile->table_name_fields} WHERE parent_id = %d AND group_id = %d $sort_sql", $parent_id, $this->group_id );
+		$children_array = array();
+		$children = $wpdb->get_results( $sql );
+		$children_array['everybody'] = 'Everybody';
+		foreach($children as $child) {
+			$children_array[$child->id] = $child->name;
+		}
+		$children_array['nobody'] = 'Nobody';
+		return $children_array;
+	}
+
 	public function delete_children() {
 		global $wpdb, $bp;
 
 		$sql = $wpdb->prepare( "DELETE FROM {$bp->profile->table_name_fields} WHERE parent_id = %d", $this->id );
 
 		$wpdb->query( $sql );
+	}
+
+	public function get_select_html($id, $default_value) {
+		global $wpdb, $bp;
+		// This is done here so we don't have problems with sql injection
+		if ( 'asc' == $this->order_by ) {
+			$sort_sql = 'ORDER BY name ASC';
+		} elseif ( 'desc' == $this->order_by ) {
+			$sort_sql = 'ORDER BY name DESC';
+		} else {
+			$sort_sql = 'ORDER BY option_order ASC';
+		}
+
+		// This eliminates a problem with getting all fields when there is no id for the object
+		if ( empty( $this->id ) ) {
+			$parent_id = -1;
+		} else {
+			$parent_id = $this->id;
+		}
+		$html_select = "<select name='bps_options[field_member_type][" . $id . "]' id='field_member_type" . $id . "'>%s</select>";
+		$html_option = "<option value='%s' %s>%s</option>";
+		$html_options_assembled = "";
+		$sql = $wpdb->prepare( "SELECT * FROM {$bp->profile->table_name_fields} WHERE parent_id = %d AND group_id = %d $sort_sql", $parent_id, $this->group_id );
+
+		$children = $wpdb->get_results( $sql );
+		$html_options_assembled .= sprintf($html_option, 'everybody', ($default_value == 'everybody' ? 'selected="selected"' : ''),  'Everybody');
+		foreach($children as $child) {
+			$html_options_assembled .= sprintf($html_option, $child->id, ($default_value == $child ? 'selected="selected"' : ''), $child->name);
+		}
+		$html_options_assembled .= sprintf($html_option, 'nobody', ($default_value == 'everybody' ? 'selected="selected"' : ''), 'Nobody');
+		if(!strpos($html_options_assembled, 'selected')){
+			$html_options_assembled .= sprintf($html_option, $child->id, 'selected="selected"', 'Unknown');
+		}
+		return sprintf($html_select, $html_options_assembled);
 	}
 
 	/** Static Methods ********************************************************/
@@ -681,6 +751,8 @@ class BP_XProfile_Field {
 
 		return false;
 	}
+
+	
 
 	public static function delete_for_group( $group_id ) {
 		global $wpdb, $bp;

@@ -50,15 +50,29 @@ function add_field(forWhat) {
 	labelRange.appendChild( range );
 	labelRange.appendChild( document.createTextNode( bps_strings.range + ' ' ) );
 
-	var business_member = document.createElement( 'input' );
-	business_member.setAttribute( 'type', 'checkbox' );
-	business_member.setAttribute( 'name', 'bps_options[field_business_member][' + theId + ']' );
-	business_member.setAttribute( 'id', 'field_business_member' + theId );
-	business_member.setAttribute( 'value', theId );
+	var memberType = document.createElement( 'select' );
+	memberType.setAttribute( 'name', 'bps_options[field_member_type][' + theId + ']' );
+	memberType.setAttribute( 'id', 'field_member_type' + theId );
+	memberType.setAttribute( 'value', theId );
+	var $select = jQuery("<select>", {name: 'bps_options[field_member_type][' + theId + ']', id: 'field_member_type' + theId, style:'width:28%;'});
+	var $option = jQuery("<option>", {text: bps_strings.field, value: 0});
+	$option.appendTo($select);
 
-	var labelBusinessMember = document.createElement( 'label' );
-	labelBusinessMember.appendChild( business_member );
-	labelBusinessMember.appendChild( document.createTextNode( bps_strings.business_member + ' ' ) );
+	jQuery.each( bps_member_types, function( i, optgroups ) {
+		jQuery.each( optgroups, function( groupName, options ) {
+			var $optgroup = jQuery( "<optgroup>", {label: groupName} );
+			$optgroup.appendTo( $select );
+
+			jQuery.each( options, function( j, option ) {
+				var $option = jQuery( "<option>", {text: option.name, value: option.id} );
+				$option.appendTo( $optgroup );
+			});
+		});
+	});
+
+	var labelMemberType = document.createElement( 'label' );
+	labelMemberType.appendChild( member_type );
+	labelMemberType.appendChild( document.createTextNode( bps_strings.member_type + ' ' ) );
 
 	var toDelete = document.createElement( 'a' );
 	toDelete.setAttribute( 'href', "javascript:hide('field_div" + theId + "')" );

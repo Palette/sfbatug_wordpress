@@ -89,7 +89,7 @@ function bps_admin_js ()
 		'label' => __('label', 'bps'),
 		'description' => __('description', 'bps'),
 		'range' => __('Range', 'bps'),
-		'business_member' => __('Business Members Only', 'bps'),
+		'member_type' => __('Available To', 'bps'),
 	);
 	wp_enqueue_script ('bps-admin', plugins_url ('bps-admin.js', __FILE__), array ('jquery-ui-sortable'), BPS_VERSION);
 	wp_localize_script ('bps-admin', 'bps_strings', $translations);
@@ -105,7 +105,7 @@ function bps_update_fields ()
 	$bps_options['field_label'] = array ();
 	$bps_options['field_desc'] = array ();
 	$bps_options['field_range'] = array ();
-	$bps_options['field_business_member'] = array ();
+	$bps_options['field_member_type'] = array ();
 
 	$j = 0;
 	$posted = $_POST['bps_options'];
@@ -126,8 +126,8 @@ function bps_update_fields ()
 		$bps_options['field_desc'][$j] = $desc;
 		if (isset ($posted['field_range'][$k]) && $type != 'checkbox' && $type != 'multiselectbox')
 			$bps_options['field_range'][$j] = $j;
-		if (isset ($posted['field_business_member'][$k]) && $type != 'checkbox' && $type != 'multiselectbox')
-			$bps_options['field_business_member'][$j] = $j;
+		if (isset ($posted['field_member_type'][$k]) && $type == 'multiselectbox')
+			$bps_options['field_member_type'][$j] = $j;
 
 		if ($type == 'datebox')
 			$bps_options['field_range'][$j] = $j;
@@ -142,17 +142,18 @@ function bps_form_fields ()
 
 	list ($groups, $fields) = bps_get_fields ();
 	echo '<script>var bps_groups = ['. json_encode ($groups). '];</script>';
+	echo '<script>var bps_member_types = ['. json_encode (xprofile_get_field(18)->get_children_array()). '];</script>';
 ?>
 
 	<div id="field_box" class="field_box">
 <?php
-
 	foreach ($bps_options['field_name'] as $k => $id)
 	{
 		if (empty ($fields[$id]))  continue;
 
 		$label = $bps_options['field_label'][$k];
 		$desc = $bps_options['field_desc'][$k];
+		$member_type = $bps_options['field_member_type'][$k];
 ?>
 
 		<p id="field_div<?php echo $k; ?>" class="sortable">
@@ -163,7 +164,7 @@ function bps_form_fields ()
 			<input type="text" name="bps_options[field_label][<?php echo $k; ?>]" id="field_label<?php echo $k; ?>" value="<?php echo $label; ?>" style="width: 16%" />
 			<input type="text" name="bps_options[field_desc][<?php echo $k; ?>]" id="field_desc<?php echo $k; ?>" value="<?php echo $desc; ?>" style="width: 20%" />
 			<label><input type="checkbox" name="bps_options[field_range][<?php echo $k; ?>]" id="field_range<?php echo $k; ?>" value="<?php echo $k; ?>"<?php if (isset ($bps_options['field_range'][$k])) echo ' checked="checked"'; ?> /><?php _e('Range', 'bps'); ?> </label>
-			<label><input type="checkbox" name="bps_options[field_business_member][<?php echo $k; ?>]" id="field_business_member<?php echo $k; ?>" value="<?php echo $k; ?>"<?php if (isset ($bps_options['field_business_member'][$k])) echo ' checked="checked"'; ?> /><?php _e('Business Members Only', 'bps'); ?> </label>
+			<label><?php xprofile_get_field(18)->get_select_html($k, $member_type); _e('Available To', 'bps'); ?> </label>
 			<a href="javascript:hide('field_div<?php echo $k; ?>')" class="delete">[x]</a>
 		</p>
 <?php
