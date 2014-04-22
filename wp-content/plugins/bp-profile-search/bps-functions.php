@@ -142,7 +142,7 @@ function bps_form_fields ()
 
 	list ($groups, $fields) = bps_get_fields ();
 	echo '<script>var bps_groups = ['. json_encode ($groups). '];</script>';
-	echo '<script>var bps_member_types = ['. json_encode (xprofile_get_field(18)->get_children_array()). '];</script>';
+	echo '<script>var bps_member_types = '. json_encode (xprofile_get_field(18)->get_children_array()). ';</script>';
 ?>
 
 	<div id="field_box" class="field_box">
