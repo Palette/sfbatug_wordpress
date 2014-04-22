@@ -81,7 +81,7 @@ function add_field(forWhat) {
 	newDiv.appendChild( fieldD );
 	newDiv.appendChild( document.createTextNode( " " ) );
 	newDiv.appendChild( labelRange );
-	newDiv.appendChild( labelBusinessMember );
+	newDiv.appendChild( labelMemberType );
 	newDiv.appendChild( toDelete );
 
 	enableSortableFieldOptions();
