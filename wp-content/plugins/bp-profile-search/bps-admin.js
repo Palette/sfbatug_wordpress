@@ -62,7 +62,6 @@ function add_field(forWhat) {
 	toDelete = document.createElement( 'td' ).appendChild(toDelete);
 
 	holder.appendChild( newDiv );
-	newDiv.appendChild( span );
 	$select.appendTo("#field_div" + theId);
 	newDiv.appendChild( document.createTextNode( " " ) );
 	newDiv.appendChild( fieldL );
