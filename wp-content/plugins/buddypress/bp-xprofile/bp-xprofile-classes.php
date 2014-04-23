@@ -1261,6 +1261,14 @@ class BP_XProfile_ProfileData {
 		return $data;
 	}
 
+	public static function get_getchildid_byparentid( $field_id, $user_member_type){
+		global $wpdb, $bp;
+		
+		$data = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$bp->profile->table_name_fields} WHERE parent_id = %d AND name = %d", $field_id, $user_member_type ) );
+
+		return $data;
+	}
+
 	public static function get_value_byfieldname( $fields, $user_id = null ) {
 		global $bp, $wpdb;
 

@@ -63,7 +63,7 @@ foreach ($bps_options['field_name'] as $k => $id)
 	$desc = $bps_options['field_desc'][$k];
 	$range = isset ($bps_options['field_range'][$k]);
 	$allowed_member_type = $bps_options['field_member_type'][$k];
-	if($allowed_member_type == 'everybody' || $allowed_member_type == BP_XProfile_ProfileData::get_value_byid(18, $bp->loggedin_user->id)) 
+	if($allowed_member_type == 'everybody' || $allowed_member_type == BP_XProfile_ProfileData::get_getchildid_byparentid(18, BP_XProfile_ProfileData::get_value_byid(18, $bp->loggedin_user->id))) 
 	{
 		$fname = 'field_'. $id;
 		$name = sanitize_title ($field->name);
