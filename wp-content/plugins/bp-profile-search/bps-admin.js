@@ -23,7 +23,7 @@ function add_field(forWhat) {
 		});
 	});
 	var tableCell = document.createElement( 'td' );
-	tableCell.appendChild( $select );
+	tableCell.appendChild( $select[0] );
 	$select = tableCell;
 
 
