@@ -22,6 +22,9 @@ function add_field(forWhat) {
 			});
 		});
 	});
+	var tableCell = document.createElement( 'td' );
+	tableCell.appendChild( $select );
+	$select = tableCell;
 
 
 	var fieldL = document.createElement( 'input' );
@@ -29,21 +32,27 @@ function add_field(forWhat) {
 	fieldL.setAttribute( 'name', 'bps_options[field_label][' + theId + ']' );
 	fieldL.setAttribute( 'id', 'field_label' + theId );
 	fieldL.setAttribute( 'placeholder', bps_strings.label );
-	fieldL = document.createElement( 'td' ).appendChild(fieldL);
+	var tableCell = document.createElement( 'td' );
+	tableCell.appendChild( fieldL );
+	fieldL = tableCell;
 
 	var fieldD = document.createElement( 'input' );
 	fieldD.setAttribute( 'type', 'text' );
 	fieldD.setAttribute( 'name', 'bps_options[field_desc][' + theId + ']' );
 	fieldD.setAttribute( 'id', 'field_desc' + theId );
 	fieldD.setAttribute( 'placeholder', bps_strings.description );
-	fieldD = document.createElement( 'td' ).appendChild(fieldD);
+	var tableCell = document.createElement( 'td' );
+	tableCell.appendChild( fieldD );
+	fieldD = tableCell;
 
 	var range = document.createElement( 'input' );
 	range.setAttribute( 'type', 'checkbox' );
 	range.setAttribute( 'name', 'bps_options[field_range][' + theId + ']' );
 	range.setAttribute( 'id', 'field_range' + theId );
 	range.setAttribute( 'value', theId );
-	range = document.createElement( 'td' ).appendChild(range);
+	var tableCell = document.createElement( 'td' );
+	tableCell.appendChild( range );
+	range = tableCell;
 
 	var $memberTypeSelect = jQuery("<select>", {name: 'bps_options[field_member_type][' + theId + ']', id: 'field_member_type' + theId, style:'width:28%;'});
 	var $memberTypeOption = jQuery("<option>", {text: bps_strings.member_type, value: 0});
@@ -53,21 +62,22 @@ function add_field(forWhat) {
 		console.log(text);
 		$option.appendTo( $memberTypeSelect );
 	});
-	$memberTypeSelect = document.createElement( 'td' ).appendChild($memberTypeSelect[0]);
+	var tableCell = document.createElement( 'td' );
+	tableCell.appendChild( $memberTypeSelect[0] );
+	$memberTypeSelect = tableCell;
 
 	var toDelete = document.createElement( 'a' );
 	toDelete.setAttribute( 'href', "javascript:hide('field_div" + theId + "')" );
 	toDelete.setAttribute( 'class', 'delete' );
 	toDelete.appendChild( document.createTextNode( '[x]' ) );
-	toDelete = document.createElement( 'td' ).appendChild(toDelete);
+	var tableCell = document.createElement( 'td' );
+	tableCell.appendChild( toDelete );
+	toDelete = tableCell;
 
 	holder.appendChild( newDiv );
 	$select.appendTo("#field_div" + theId);
-	newDiv.appendChild( document.createTextNode( " " ) );
 	newDiv.appendChild( fieldL );
-	newDiv.appendChild( document.createTextNode( " " ) );
 	newDiv.appendChild( fieldD );
-	newDiv.appendChild( document.createTextNode( " " ) );
 	newDiv.appendChild( range );
 	newDiv.appendChild( $memberTypeSelect );
 	newDiv.appendChild( toDelete );
