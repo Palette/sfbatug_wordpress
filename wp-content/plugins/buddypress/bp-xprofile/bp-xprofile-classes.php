@@ -725,9 +725,9 @@ class BP_XProfile_Field {
 		$children = $wpdb->get_results( $sql );
 		$html_options_assembled .= sprintf($html_option, 'everybody', ($default_value == 'everybody' ? 'selected="selected"' : ''),  'Everybody');
 		foreach($children as $child) {
-			$html_options_assembled .= sprintf($html_option, $child->id, ($default_value == $child ? 'selected="selected"' : ''), $child->name);
+			$html_options_assembled .= sprintf($html_option, $child->id, ($default_value == $child->id ? 'selected="selected"' : ''), $child->name);
 		}
-		$html_options_assembled .= sprintf($html_option, 'nobody', ($default_value == 'everybody' ? 'selected="selected"' : ''), 'Nobody');
+		$html_options_assembled .= sprintf($html_option, 'nobody', ($default_value == 'nobody' ? 'selected="selected"' : ''), 'Nobody');
 		if(!strpos($html_options_assembled, 'selected')){
 			$html_options_assembled .= sprintf($html_option, $child->id, 'selected="selected"', 'Unknown');
 		}

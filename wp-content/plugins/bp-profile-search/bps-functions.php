@@ -126,8 +126,7 @@ function bps_update_fields ()
 		$bps_options['field_desc'][$j] = $desc;
 		if (isset ($posted['field_range'][$k]) && $type != 'checkbox' && $type != 'multiselectbox')
 			$bps_options['field_range'][$j] = $j;
-		if (isset ($posted['field_member_type'][$k]) && $type == 'multiselectbox')
-			$bps_options['field_member_type'][$j] = $j;
+		$bps_options['field_member_type'][$j] = $desc = stripslashes ($posted['field_member_type'][$k]);;
 
 		if ($type == 'datebox')
 			$bps_options['field_range'][$j] = $j;
@@ -172,7 +171,7 @@ function bps_form_fields ()
 		$desc = $bps_options['field_desc'][$k];
 		$member_type = $bps_options['field_member_type'][$k]; 
 		?>
-		<tr>
+		<tr id='field_tr<?php echo $k; ?>'>
 			<td>	
 				<?php bps_profile_fields ("bps_options[field_name][$k]", "field_name$k", $id); ?>
 			</td>
@@ -186,10 +185,10 @@ function bps_form_fields ()
 				<input type="checkbox" name="bps_options[field_range][<?php echo $k; ?>]" id="field_range<?php echo $k; ?>" value="<?php echo $k; ?>"<?php if (isset ($bps_options['field_range'][$k])) echo ' checked="checked"'; ?> />
 			</td>
 			<td>
-				<?php xprofile_get_field(18)->get_select_html($k, $member_type); ?>
+				<?php echo xprofile_get_field(18)->get_select_html($k, $member_type); ?>
 			</td>
 			<td>
-				<a href="javascript:hide('field_div<?php echo $k; ?>')" class="delete">[x]</a>
+				<a href="javascript:hide('field_tr<?php echo $k; ?>')" class="delete">[x]</a>
 			</td>
 		</tr>
 	<?php } ?>

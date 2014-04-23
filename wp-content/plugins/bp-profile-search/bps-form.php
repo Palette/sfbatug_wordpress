@@ -52,7 +52,7 @@ if ($tag != 'bps_auto')  echo "<div id='buddypress'>";
 	}
 
 echo "<form action='$action' method='post' id='$tag' class='standard-form'>";
-
+global $bp;
 $j = 0;
 foreach ($bps_options['field_name'] as $k => $id)
 {
@@ -62,108 +62,115 @@ foreach ($bps_options['field_name'] as $k => $id)
 	$label = $bps_options['field_label'][$k];
 	$desc = $bps_options['field_desc'][$k];
 	$range = isset ($bps_options['field_range'][$k]);
-
-	$fname = 'field_'. $id;
-	$name = sanitize_title ($field->name);
-	$alt = ($j++ % 2)? ' alt': '';
-
-	echo "<div class='editfield field_$id field_$name$alt'>";
-
-	if ($range)
+	$allowed_member_type = $bps_options['field_member_type'][$k];
+	if($allowed_member_type == 'everybody' || $allowed_member_type == BP_XProfile_ProfileData::get_value_byid(18, $bp->loggedin_user->id)) 
 	{
-		list ($min, $max) = bps_minmax ($_POST, $fname, $field->type);
 
-		echo "<label for='$fname'>$label</label>";
-		echo "<input style='width: 10%;' type='text' name='$fname' id='$fname' value='$min' />";
-		echo '&nbsp;-&nbsp;';
-		echo "<input style='width: 10%;' type='text' name='{$fname}_max' value='$max' />";
+		$fname = 'field_'. $id;
+		$name = sanitize_title ($field->name);
+		$alt = ($j++ % 2)? ' alt': '';
+
+		echo "<div class='editfield field_$id field_$name$alt'>";
+
+		if ($range)
+		{
+			list ($min, $max) = bps_minmax ($_POST, $fname, $field->type);
+
+			echo "<label for='$fname'>$label</label>";
+			echo "<input style='width: 10%;' type='text' name='$fname' id='$fname' value='$min' />";
+			echo '&nbsp;-&nbsp;';
+			echo "<input style='width: 10%;' type='text' name='{$fname}_max' value='$max' />";
+		}
+		else 
+		{
+			switch ($field->type)
+			{
+				case 'textbox':
+					$posted = isset ($_POST[$fname])? $_POST[$fname]: '';
+					$value = esc_attr (stripslashes ($posted));
+					echo "<label for='$fname'>$label</label>";
+					echo "<input type='text' name='$fname' id='$fname' value='$value' />";
+					break;
+
+				case 'textarea':
+					$posted = isset ($_POST[$fname])? $_POST[$fname]: '';
+					$value = esc_textarea (stripslashes ($posted));
+					echo "<label for='$fname'>$label</label>";
+					echo "<textarea rows='5' cols='40' name='$fname' id='$fname'>$value</textarea>";
+					break;
+
+				case 'selectbox':
+					echo "<label for='$fname'>$label</label>";
+					echo "<select name='$fname' id='$fname'>";
+					echo "<option value=''></option>";
+
+					$posted = isset ($_POST[$fname])? $_POST[$fname]: '';
+					$options = $field->get_children ();
+					foreach ($options as $option)
+					{
+						$option->name = trim ($option->name);
+						$value = esc_attr (stripslashes ($option->name));
+						$selected = ($option->name == $posted)? "selected='selected'": "";
+						echo "<option $selected value='$value'>$value</option>";
+					}
+					echo "</select>";
+					break;
+
+				case 'multiselectbox':
+					echo "<label for='$fname'>$label</label>";
+					echo "<select name='{$fname}[]' id='$fname' multiple='multiple'>";
+
+					$posted = isset ($_POST[$fname])? $_POST[$fname]: array ();
+					$options = $field->get_children ();
+					foreach ($options as $option)
+					{
+						$option->name = trim ($option->name);
+						$value = esc_attr (stripslashes ($option->name));
+						$selected = (in_array ($option->name, $posted))? "selected='selected'": "";
+						echo "<option $selected value='$value'>$value</option>";
+					}
+					echo "</select>";
+					break;
+
+				case 'radio':
+					echo "<div class='radio'>";
+					echo "<span class='label'>$label</span>";
+					echo "<div id='$fname'>";
+
+					$posted = isset ($_POST[$fname])? $_POST[$fname]: '';
+					$options = $field->get_children ();
+					foreach ($options as $option)
+					{
+						$option->name = trim ($option->name);
+						$value = esc_attr (stripslashes ($option->name));
+						$selected = ($option->name == $posted)? "checked='checked'": "";
+						echo "<label><input $selected type='radio' name='$fname' value='$value'>$value</label>";
+					}
+					echo '</div>';
+					echo "<a class='clear-value' href='javascript:clear(\"$fname\");'>". __('Clear', 'buddypress'). "</a>";
+					echo '</div>';
+					break;
+
+				case 'checkbox':
+					echo "<div class='checkbox'>";
+					echo "<span class='label'>$label</span>";
+
+					$posted = isset ($_POST[$fname])? $_POST[$fname]: array ();
+					$options = $field->get_children ();
+					foreach ($options as $option)
+					{
+						$option->name = trim ($option->name);
+						$value = esc_attr (stripslashes ($option->name));
+						$selected = (in_array ($option->name, $posted))? "checked='checked'": "";
+						echo "<label><input $selected type='checkbox' name='{$fname}[]' value='$value'>$value</label>";
+					}
+					echo '</div>';
+					break;
+			}
+		}
+		echo "<p class='description'>$desc</p>";
+		echo '</div>';
 	}
-	else switch ($field->type)
-	{
-		case 'textbox':
-			$posted = isset ($_POST[$fname])? $_POST[$fname]: '';
-			$value = esc_attr (stripslashes ($posted));
-			echo "<label for='$fname'>$label</label>";
-			echo "<input type='text' name='$fname' id='$fname' value='$value' />";
-			break;
-
-		case 'textarea':
-			$posted = isset ($_POST[$fname])? $_POST[$fname]: '';
-			$value = esc_textarea (stripslashes ($posted));
-			echo "<label for='$fname'>$label</label>";
-			echo "<textarea rows='5' cols='40' name='$fname' id='$fname'>$value</textarea>";
-			break;
-
-		case 'selectbox':
-			echo "<label for='$fname'>$label</label>";
-			echo "<select name='$fname' id='$fname'>";
-			echo "<option value=''></option>";
-
-			$posted = isset ($_POST[$fname])? $_POST[$fname]: '';
-			$options = $field->get_children ();
-			foreach ($options as $option)
-			{
-				$option->name = trim ($option->name);
-				$value = esc_attr (stripslashes ($option->name));
-				$selected = ($option->name == $posted)? "selected='selected'": "";
-				echo "<option $selected value='$value'>$value</option>";
-			}
-			echo "</select>";
-			break;
-
-		case 'multiselectbox':
-			echo "<label for='$fname'>$label</label>";
-			echo "<select name='{$fname}[]' id='$fname' multiple='multiple'>";
-
-			$posted = isset ($_POST[$fname])? $_POST[$fname]: array ();
-			$options = $field->get_children ();
-			foreach ($options as $option)
-			{
-				$option->name = trim ($option->name);
-				$value = esc_attr (stripslashes ($option->name));
-				$selected = (in_array ($option->name, $posted))? "selected='selected'": "";
-				echo "<option $selected value='$value'>$value</option>";
-			}
-			echo "</select>";
-			break;
-
-		case 'radio':
-			echo "<div class='radio'>";
-			echo "<span class='label'>$label</span>";
-			echo "<div id='$fname'>";
-
-			$posted = isset ($_POST[$fname])? $_POST[$fname]: '';
-			$options = $field->get_children ();
-			foreach ($options as $option)
-			{
-				$option->name = trim ($option->name);
-				$value = esc_attr (stripslashes ($option->name));
-				$selected = ($option->name == $posted)? "checked='checked'": "";
-				echo "<label><input $selected type='radio' name='$fname' value='$value'>$value</label>";
-			}
-			echo '</div>';
-			echo "<a class='clear-value' href='javascript:clear(\"$fname\");'>". __('Clear', 'buddypress'). "</a>";
-			echo '</div>';
-			break;
-
-		case 'checkbox':
-			echo "<div class='checkbox'>";
-			echo "<span class='label'>$label</span>";
-
-			$posted = isset ($_POST[$fname])? $_POST[$fname]: array ();
-			$options = $field->get_children ();
-			foreach ($options as $option)
-			{
-				$option->name = trim ($option->name);
-				$value = esc_attr (stripslashes ($option->name));
-				$selected = (in_array ($option->name, $posted))? "checked='checked'": "";
-				echo "<label><input $selected type='checkbox' name='{$fname}[]' value='$value'>$value</label>";
-			}
-			echo '</div>';
-			break;
-	}
-	echo "<p class='description'>$desc</p>";
-	echo '</div>';
 }
 
 echo "<div class='submit'>";
