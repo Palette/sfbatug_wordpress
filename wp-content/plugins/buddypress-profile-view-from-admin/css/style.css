@@ -1,0 +1,88 @@
+/* CSS Document */
+
+#profile-view{
+	margin-top:50px;
+	margin-left:10px;
+}
+#profile-view h2{
+	margin-top: 0px;
+}
+#profile-view h3{
+	padding: 10px;
+	background:#F4F4F4;
+}
+#profile-view-avatar {
+    float: left;
+    margin-right: -20px;
+    margin-top: 0;
+    position: relative;
+    width: 164px;
+    z-index: 100;
+}
+div#profile-view-content {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    float: left;
+    font-size: 14px;
+    line-height: 1.6em;
+    padding: 0px 36px 18px 46px;
+    width: 527px;
+}
+#profile-view-avatar img {
+    float: left;
+    margin: 0 15px 19px 0;
+	border: 7px solid #EFEFEF;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+#profile-view h2 a {
+    font-size: 48px;
+    font-weight: bold;
+    line-height: 100%;
+    margin: -5px 0 15px;
+	margin-bottom: 3px;
+	text-decoration: none;
+}
+
+#profile-view .user-nicename {
+	display: inline-block;
+	font-size: 16px;
+	font-style: italic;
+}
+
+#profile-view span.activity {
+	background: none repeat scroll 0 0 #212121;
+	background: none repeat scroll 0 0 #D94B33;
+	border-radius: 4px 4px 4px 4px;
+	font-size: 11px;
+	padding: 3px 6px;
+	color: #FFF;
+}
+
+
+#profile-view div#item-meta {
+    font-size: 13px;
+    line-height: 1.5em;
+    margin: 15px 0 5px;
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+
+#profile-view #latest-update {
+    font-style: italic;
+}
+
+#profile-view #item-meta {
+    font-size: 13px;
+    line-height: 1.5em;
+}
+
+.profile-info label {
+	font-weight: bold;
+}
+.profile-info .profile-info-row {
+	padding:10px 0;
+}
