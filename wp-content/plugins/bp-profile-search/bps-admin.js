@@ -75,7 +75,7 @@ function add_field(forWhat) {
 	toDelete = tableCell;
 
 	holder.appendChild( newDiv );
-	$($select).appendTo("#field_div" + theId);
+	newDiv.appendChild($select);
 	newDiv.appendChild( fieldL );
 	newDiv.appendChild( fieldD );
 	newDiv.appendChild( range );
