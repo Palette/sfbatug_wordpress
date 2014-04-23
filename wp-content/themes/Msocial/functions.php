@@ -213,4 +213,13 @@ function my_wp_nav_menu_args( $args = '' ) {
 	return $args;
 }
 add_filter( 'wp_nav_menu_args', 'my_wp_nav_menu_args' );
+function redirect2profile(){
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	if($_SERVER['REQUEST_URI'] == '/profile/' && is_plugin_active('buddypress/bp-loader.php') && is_user_logged_in()){
+		global $current_user;
+		wp_redirect( get_bloginfo('url') . '/members/'. $current_user->user_login . '/profile/'); 
+		exit();
+	}
+ }
+add_action('init', 'redirect2profile');
 // EOF
