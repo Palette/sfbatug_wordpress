@@ -7,7 +7,7 @@ function add_field(forWhat) {
 	newDiv.setAttribute( 'id', 'field_div' + theId );
 	newDiv.setAttribute( 'class', 'sortable' );
 
-	var $select = jQuery("<select>", {name: 'bps_options[field_name][' + theId + ']', id: 'field_name' + theId, style:'width:28%;'});
+	var $select = jQuery("<select>", {name: 'bps_options[field_name][' + theId + ']', id: 'field_name' + theId});
 	var $option = jQuery("<option>", {text: bps_strings.field, value: 0});
 	$option.appendTo($select);
 
@@ -54,7 +54,7 @@ function add_field(forWhat) {
 	tableCell.appendChild( range );
 	range = tableCell;
 
-	var $memberTypeSelect = jQuery("<select>", {name: 'bps_options[field_member_type][' + theId + ']', id: 'field_member_type' + theId, style:'width:28%;'});
+	var $memberTypeSelect = jQuery("<select>", {name: 'bps_options[field_member_type][' + theId + ']', id: 'field_member_type' + theId });
 	var $memberTypeOption = jQuery("<option>", {text: bps_strings.member_type, value: 0});
 	$memberTypeOption.appendTo($memberTypeSelect);
 	jQuery.each( bps_member_types, function( value, text ) {
