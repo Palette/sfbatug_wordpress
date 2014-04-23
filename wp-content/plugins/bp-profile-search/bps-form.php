@@ -57,21 +57,18 @@ $j = 0;
 foreach ($bps_options['field_name'] as $k => $id)
 {
 	$field = new BP_XProfile_Field ($id);
-	if (empty ($field->id))  continue;
-
+	if (empty ($field->id))  
+		continue;
 	$label = $bps_options['field_label'][$k];
 	$desc = $bps_options['field_desc'][$k];
 	$range = isset ($bps_options['field_range'][$k]);
 	$allowed_member_type = $bps_options['field_member_type'][$k];
 	if($allowed_member_type == 'everybody' || $allowed_member_type == BP_XProfile_ProfileData::get_value_byid(18, $bp->loggedin_user->id)) 
 	{
-
 		$fname = 'field_'. $id;
 		$name = sanitize_title ($field->name);
 		$alt = ($j++ % 2)? ' alt': '';
-
 		echo "<div class='editfield field_$id field_$name$alt'>";
-
 		if ($range)
 		{
 			list ($min, $max) = bps_minmax ($_POST, $fname, $field->type);
